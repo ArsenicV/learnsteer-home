@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/sections/Hero';
+import Feature from '../components/sections/Feature.astro';
+import Marques from '../components/sections/Marques.astro';
+import Services from '../components/sections/Services.astro';
+import Roadmap from '../components/sections/Roadmap';
+import ContributorsTeaser from '../components/sections/ContributorsTeaser';
+import JoinForm from '../components/sections/JoinForm';
+import AdminView from '../components/admin/AdminView';
+import SiteEffects from '../components/effects/SiteEffects';
+import { C } from '../lib/content';
+
+const nav = C.nav;
+---
+<Base title={C.brand}>
+  <header class="site-header">
+    <a href="#" class="brand" aria-label="LearnSteer 2.0"><span class="lbl">Non-profit</span><small class="lbl">since 2024</small></a>
+    <a href="#" class="logo" aria-label="Home">/</a>
+    <div class="hdr-r">
+      <nav class="d" id="nav" aria-label="Primary">
+        {nav.map((n) => <a href={n === 'Contact' ? '#join' : n === 'Services' ? '#svc' : '#main'}>{n}</a>)}
+      </nav>
+      <a class="btn" href="#join">Contact</a>
+      <button class="burger" id="bg" aria-expanded="false" aria-controls="ov">Menu</button>
+    </div>
+  </header>
+  <div id="ov" role="dialog" aria-label="Menu">
+    <button class="burger x" id="bx">Close</button>
+    {nav.map((n, i) => <a href={n === 'Contact' ? '#join' : n === 'Services' ? '#svc' : '#main'} style={`transition-delay:${0.1 + i * 0.07}s`}>{n}</a>)}
+  </div>
+
+  <main id="main">
+    <Hero client:load />
+    <Feature />
+    <Marques />
+    <Services />
+    <Roadmap client:visible />
+    <ContributorsTeaser client:visible />
+    <JoinForm client:visible />
+  </main>
+
+  <main id="v-admin" class="wrap">
+    <AdminView client:only="react" />
+  </main>
+
+
+
+  <footer style="background:var(--sky);color:#fff;text-align:center;padding:20px 16px;font-size:14px;">
+    <p style="margin:0;"><strong>LearnSteer 2.0</strong> &nbsp;·&nbsp; &copy; {new Date().getFullYear()} LearnSteer 2.0. All rights reserved.</p>
+  </footer>
+
+  <SiteEffects client:load />
+</Base>
+
+<script>
+  // Mobile menu toggle (small, non-React)
+  const ov = document.getElementById('ov');
+  const bg = document.getElementById('bg');
+  const bx = document.getElementById('bx');
+  const tog = (o: boolean) => {
+    ov?.classList.toggle('open', o);
+    bg?.setAttribute('aria-expanded', String(o));
+    if (o) (bx as HTMLButtonElement | null)?.focus();
+  };
+  bg?.addEventListener('click', () => tog(true));
+  bx?.addEventListener('click', () => tog(false));
+  ov?.addEventListener('click', (e) => { if ((e.target as HTMLElement).tagName === 'A') tog(false); });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') tog(false); });
+</script>

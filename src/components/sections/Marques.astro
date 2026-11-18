@@ -1,0 +1,16 @@
+---
+import { C } from '../../lib/content';
+---
+<section class="wrap" id="marq">
+  <hr class="hl" />
+  <div style="padding-top:32px">
+    <div class="lbl">MARQUES</div>
+    <p class="big">{C.marques.intro}</p>
+    <div class="ml">{C.marques.list.map((m) => <a href="#svc">{m}</a>)}</div>
+  </div>
+  <div class="strip" aria-hidden="true">
+    <div class="track">
+      {Array.from({ length: 24 }).map(() => <div class="tile"></div>)}
+    </div>
+  </div>
+</section>

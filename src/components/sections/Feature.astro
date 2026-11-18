@@ -1,0 +1,11 @@
+---
+import { C } from '../../lib/content';
+const words = (t: string) => t.split(' ').map((w) => `<span class="w">${w.replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c] as string))}</span>`).join(' ');
+---
+<section class="wrap" id="feat">
+  <hr class="hl" />
+  <div style="padding-top:32px">
+    <div class="lbl">{C.feat.label}</div>
+    <h2 class="big" set:html={words(C.feat.text)}></h2>
+  </div>
+</section>

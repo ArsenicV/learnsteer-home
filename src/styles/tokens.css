@@ -1,0 +1,14 @@
+:root {
+  /* White & sky-blue palette */
+  --bg: #ffffff;
+  --fg: #0f172a;
+  --mut: #64748b;
+  --line: #e0f2fe;
+  --sky: #0ea5e9;
+  --sky-light: #38bdf8;
+  --sky-soft: #bae6fd;
+  --sky-dark: #0369a1;
+  --sky-faint: #f0f9ff;
+  --danger: #ef4444;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
